@@ -7,7 +7,9 @@ using System.Collections;
 
 namespace Circle
 {
+#pragma warning disable CS0659 // 'Point' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     struct Point : IEquatable<Point>
+#pragma warning restore CS0659 // 'Point' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -58,11 +60,15 @@ namespace Circle
                 {
                     throw new ArgumentOutOfRangeException("value", value, "Incorrect radius");
                 }
+                double oldRadius = Radius;
                 radius = value;
+                Change?.Invoke(this, oldRadius, Radius);
             }
         }
 
         public delegate double Calculation(double radius);
+        public delegate void ChangedRadius(Circle sender, double Before, double After);
+        public event ChangedRadius Change;
 
         public Circle(Point _center, double _radius)
         {
@@ -98,6 +104,43 @@ namespace Circle
         public double Calculations(Calculation smth)
         {
             return smth(Radius);
+        }
+    }
+
+
+    class CircleListener<T>
+        where T : Circle
+    {
+        T Subscriber;
+        
+        public CircleListener(T subscriber)
+        {
+            Subscriber = subscriber;
+            Subscriber.Change += CircleChanged;
+        }
+        void CircleChanged(Circle sender, double before, double after)
+        {
+            Console.WriteLine("Circle changed: {0} \t from {1} to {2}", sender, before, after);
+        }
+        void Detach()
+        {
+            Subscriber.Change -= CircleChanged;
+        }
+    }
+
+    public enum Color { Red,Green, Blue }
+
+    class ColorCircle : Circle
+    {
+        Color ColorType { get; set; }
+
+        public ColorCircle(Point _center, double _radius, Color color) : base(_center, _radius)
+        {
+            ColorType = color;
+        }
+        public override string ToString()
+        {
+            return base.ToString() + " Color: " + ColorType.ToString();
         }
     }
 }
