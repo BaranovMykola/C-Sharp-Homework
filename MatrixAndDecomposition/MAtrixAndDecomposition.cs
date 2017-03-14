@@ -10,7 +10,7 @@ namespace MatrixAndDecomposition
     {
         public string name { get; set; } = "fff";
     }
-    class Program
+    class MatrixAndDecomposition
     {
         static int[] decomposition(int number)
         {
@@ -61,6 +61,12 @@ namespace MatrixAndDecomposition
             foreach(var i in B)
             {
                 Console.Write("{0}: {1}, ", index++, i);
+            }
+            Console.WriteLine();
+            var p = decomposition(6);
+            foreach(var i in p)
+            {
+                Console.Write("{0} ", i);
             }
             Console.ReadKey();
         }

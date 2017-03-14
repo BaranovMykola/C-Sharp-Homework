@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace StringParsing
 {
-    class Program
+    class StringParsing
     {
         static void removeNumbers(ref string str)
         {
@@ -20,7 +20,7 @@ namespace StringParsing
         }
         static void Main(string[] args)
         {
-            string str = "mapsg32@gmail.com";
+            string str = "gmapf@gmail.com";
             Console.WriteLine("{0} is email format: {1}", str, isEmail(str));
             Console.ReadKey();
         }
