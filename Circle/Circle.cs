@@ -7,9 +7,7 @@ using System.Collections;
 
 namespace Circle
 {
-#pragma warning disable CS0659 // 'Point' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     struct Point : IEquatable<Point>
-#pragma warning restore CS0659 // 'Point' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         public int X { get; set; }
         public int Y { get; set; }

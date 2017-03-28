@@ -17,9 +17,8 @@ namespace Circle
 
             Circle[] arr = { a, b, c, d as Circle };
             CircleListener<Circle> listenerA = new CircleListener<Circle>(d);
-            arr[3].Radius = 10;
+            arr[3].Radius = 7;
             Array.Sort(arr);
-
             Console.WriteLine("Custom square of {0}: {1} and real square is {2}", arr[0], arr[0].Calculations(delegate (double R) { return Math.PI * R * R; }), arr[0].Square());
 
             foreach(var i in arr)
